@@ -1,0 +1,31 @@
+
+#aqui en el caso de que tengamos M > 1
+#M = 1 es el caso en functions... sino tenemos M vectores dentro de cada inventario
+inventary = [[[] for i in range(M)] for i in range(N)]
+#N inventarios con M listas (objetos), cada una puede contener varias definiciones
+
+def step(N, m, inventary):
+    for i in range(N):
+        speaker = np.random.randint(N)
+        hearer = np.random.choice(neighs[speaker])
+        objeto = np.random.choice(M)
+        if len(inventary[speaker][objeto]) == 0:
+            inventary[speaker][objeto].append(np.random.choice(10**5))
+        definicion_speaker = np.random.choice(inventary[speaker][objeto])
+        success = False
+        for objs in inventary[hearer][objeto]:
+            if objs == definicion_speaker:
+                success == True
+
+        success_rate = 0
+        if success:  # success
+            inventary[speaker][objeto] = [definicion_speaker]
+            inventary[hearer][objeto] = [definicion_speaker]
+            success_rate += 1
+
+        if not success:  # failure
+            inventary[hearer][objeto].append(definicion_speaker)
+
+
+neighs = extract_allwithall(N)
+inventary = [[[] for i in range(M)] for i in range(N)]
